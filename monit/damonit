@@ -1,0 +1,6 @@
+#! /bin/bash
+
+pid_dir=~/.pid
+sed -i -e "/check process/d" ~/.monitrc
+yes | rm -f ${pid_dir}/*.pid
+monit reload

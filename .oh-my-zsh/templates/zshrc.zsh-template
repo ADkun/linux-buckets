@@ -1,0 +1,110 @@
+export ZSH="$HOME/.oh-my-zsh"
+
+# agnoster地址
+ZSH_THEME="ys"
+# 不检查插件的权限
+ZSH_DISABLE_COMPFIX=true
+# 大小写不敏感
+CASE_SENSITIVE=false
+# 中划线和下划线敏感
+HYPHEN_INSENSITIVE=false
+# 不自动更新
+zstyle ':omz:update' mode disabled
+# 启用ls中的颜色
+DISABLE_LS_COLORS=false
+# 不使用自动终端标题
+DISABLE_AUTO_TITLE=true
+# 启用自动纠正
+ENABLE_CORRECTION=true
+
+# 关闭标记未追踪文件于VCS为dirty。这会让大型仓库状态检查快很多
+DISABLE_UNTRACKED_FILES_DIRTY=true
+
+# 设置命令执行时间戳格式
+HIST_STAMPS="yyyy-dd-mm"
+
+# !!!插件!!!
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions last-working-dir)
+
+source $ZSH/oh-my-zsh.sh
+
+# 设置终端256色
+export TERM='xterm-256color'
+
+# 命令映射
+alias fcat="'fzf --preview 'cat {}'"
+alias ff='find . 2>/dev/null|fzf -m'
+alias fd='find . -type d 2>/dev/null | fzf -m'
+alias vf='vim $(ff)'
+alias af='ag -l "$1" 2>/dev/null| fzf -m'
+alias va='func(){ vim $(af) };func'
+alias al='func(){ ag -l "$1" 2>/dev/null };func'
+alias pa='paf(){ ps -aux|ag $1 };paf'
+alias wll='watch -n 1 ls -lhA'
+alias ax='axf(){ axel -a -n "$1" "$2" }; axf'
+alias cdf='cd $(dirname $(find . -type f|fzf))'
+alias cdd='cd $(find . -type d|fzf)'
+alias lz=lazygit
+alias lsa='ls | ag '
+alias lla='ll | ag '
+# systemctl
+alias scstart='ScstartFunc(){ systemctl start $1; };ScstartFunc'
+alias screstart='ScstartFunc(){ systemctl restart $1; };ScstartFunc'
+alias scstop='ScstopFunc(){ systemctl stop $1; };ScstopFunc'
+alias scstatus='ScstatusFunc(){ systemctl status $1; };ScstatusFunc'
+alias sctl='systemctl list-units --type=service'
+# git
+alias gib='git branch'
+alias gis='git status'
+alias gips='git push'
+alias gipl='git pull'
+alias gicl='git clone'
+alias gir='git remote'
+alias gich='git checkout'
+alias gia='git add'
+alias gicm='git commit'
+alias gil='git log'
+alias gid='git diff'
+alias girv='git remote -v'
+alias gif='git fetch'
+
+# find grep
+alias fig='FgFunc(){ find . -type f | while read -r line; do res=$(grep -E -a "$1" $line); if [ -n "$res" ];then PrintGreen "$line:"; Print "$res"; res=""; fi; done; };FgFunc'
+alias figl='FgFunc(){ find . -type f | while read -r line; do res=$(grep -E -a "$1" $line); if [ -n "$res" ];then echo "$line"; res=""; fi; done; };FgFunc'
+alias figi='FgFunc(){ find . -type f | while read -r line; do res=$(grep -E -ai "$1" $line); if [ -n "$res" ];then PrintGreen "$line"; Print "$res"; res=""; fi; done; };FgFunc'
+alias figil='FgFunc(){ find . -type f | while read -r line; do res=$(grep -E -ai "$1" $line); if [ -n "$res" ];then echo "$line";fi; done; };FgFunc'
+
+# ps grep
+alias pg='PgFunc(){ ps -ef|grep -E -i $1; };PgFunc'
+
+# Use fdfind for fzf
+# if there's any problem
+# just command it
+#export FZF_DEFAULT_COMMAND='fdfind --color=always --follow --hidden --exclude .git'
+#export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+#export FZF_DEFAULT_OPT="--ansi"
+
+# 设置默认编辑器
+export EDITOR=/usr/bin/vim
+
+# zsh自动显示所有补全插件
+# 如果出现补全问题，注释掉下面这行
+#source ~/.oh-my-zsh/plugins/incr/incr.zsh
+
+# vi mode
+# ref http://bolyai.cs.elte.hu/zsh-manual/zsh_14.html
+#bindkey -v
+#bindkey -M vicmd "i" vi-insert
+#bindkey -M vicmd "I" vi-insert-bol
+#bindkey -M vicmd "h" vi-backward-char
+#bindkey -M vicmd "l" vi-forward-char
+#bindkey -M vicmd "0" vi-beginning-of-line
+#bindkey -M vicmd "$" vi-end-of-line
+#bindkey -M vicmd "j" down-line-or-history
+#bindkey -M vicmd "k" up-line-or-history
+#bindkey -M vicmd "u" undo
+#bindkey -M vicmd "n" vi-repeat-search
+#bindkey -M vicmd "N" vi-rev-repeat-search
+#bindkey -M vicmd "w" vi-forward-word-end
+
+

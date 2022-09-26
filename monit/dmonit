@@ -1,0 +1,8 @@
+#! /bin/bash
+
+proc_name=$1
+
+pid_dir=~/.pid
+sed -i -e "/${proc_name}/d" ~/.monitrc
+yes | rm -f ${pid_dir}/${proc_name}.pid
+monit reload

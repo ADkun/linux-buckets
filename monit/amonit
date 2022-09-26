@@ -1,0 +1,69 @@
+#! /bin/bash
+
+# 获取执行目录，脚本本身的目录
+GetPath() {
+    exec_path=$(pwd) # 执行目录
+    script_path=$(cd $(dirname "${0}"); pwd) # 脚本本身目录
+}
+GetPath
+
+# 设置带颜色的打印函数
+SetPrinter(){
+    SetRed="echo -en \e[91m"
+    SetGreen="echo -en \e[32m"
+    SetYellow="echo -en \e[33m"
+    SetBlue="echo -en \e[36m"
+    UnsetColor="echo -en \e[0m"
+    Print(){
+        echo -e "${1}"
+    }
+    PrintRed(){
+        $SetRed
+        echo -e "${1}"
+        $UnsetColor
+    }
+    PrintYellow(){
+        $SetYellow
+        echo -e "${1}"
+        $UnsetColor
+    }
+    PrintGreen(){
+        $SetGreen
+        echo -e "${1}"
+        $UnsetColor
+    }
+    PrintBlue(){
+        $SetBlue
+        echo -e "${1}"
+        $UnsetColor
+    }
+}
+SetPrinter
+
+proc=$1
+
+proc_head=${proc%?}
+proc_tail=${proc: -1}
+proc_pid_list=$(ps -ef | grep -E "${proc_head}[${proc_tail}]" | grep -v "$0" | awk '{print $2}')
+proc_name_list=$(ps -ef | grep -E "${proc_head}[${proc_tail}]" | grep -v "$0" | awk '{print $8}')
+
+if [[ -z ${proc_pid_list} ]]; then
+    PrintRed "No process like ${proc}"
+    exit 1
+fi
+
+pid_dir=~/.pid
+mkdir ${pid_dir} 2>/dev/null
+c=1
+for line in $(echo ${proc_pid_list}); do
+    pid=${line}
+    proc_name=$(basename $(echo "${proc_name_list}" | sed -n "${c}p")${c})
+
+    echo "${pid}" > ${pid_dir}/${proc_name}.pid
+    echo "check process ${proc_name} with pidfile ${pid_dir}/${proc_name}.pid" >> ~/.monitrc
+
+    PrintGreen "Start monit ${proc_name} with pid ${pid}"
+
+    let c=c+1
+done
+monit reload

@@ -1,0 +1,9 @@
+#! /bin/bash
+
+proc_name=$1
+
+pid_dir=~/.pid
+mkdir ${pid_dir} 2>/dev/null
+echo "${pid}" > ${pid_dir}/${proc_name}.pid
+echo "check process ${proc_name} matching ${proc_name}" >> ~/.monitrc
+monit reload

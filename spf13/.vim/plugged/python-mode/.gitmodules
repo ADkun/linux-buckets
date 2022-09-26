@@ -1,0 +1,50 @@
+[submodule "submodules/autopep8"]
+	path = submodules/autopep8
+	url = https://github.com.cnpmjs.org/hhatto/autopep8
+    ignore = dirty
+    shallow = true
+[submodule "submodules/pycodestyle"]
+	path = submodules/pycodestyle
+	url = https://github.com.cnpmjs.org/PyCQA/pycodestyle
+    ignore = dirty
+    shallow = true
+[submodule "submodules/pydocstyle"]
+	path = submodules/pydocstyle
+	url = https://github.com.cnpmjs.org/PyCQA/pydocstyle
+    ignore = dirty
+    shallow = true
+[submodule "submodules/mccabe"]
+	path = submodules/mccabe
+	url = https://github.com.cnpmjs.org/PyCQA/mccabe
+    ignore = dirty
+    shallow = true
+[submodule "submodules/pyflakes"]
+	path = submodules/pyflakes
+	url = https://github.com.cnpmjs.org/PyCQA/pyflakes
+    ignore = dirty
+    shallow = true
+[submodule "submodules/snowball_py"]
+	path = submodules/snowball_py
+	url = https://github.com.cnpmjs.org/diraol/snowball_py
+    ignore = dirty
+	branch = develop
+    shallow = true
+[submodule "submodules/pylint"]
+	path = submodules/pylint
+	url = https://github.com.cnpmjs.org/PyCQA/pylint
+    shallow = true
+[submodule "submodules/rope"]
+	path = submodules/rope
+	url = https://github.com.cnpmjs.org/python-rope/rope
+    shallow = true
+[submodule "submodules/astroid"]
+	path = submodules/astroid
+	url = https://github.com.cnpmjs.org/PyCQA/astroid
+    shallow = true
+[submodule "submodules/pylama"]
+	path = submodules/pylama
+	url = https://github.com.cnpmjs.org/klen/pylama
+    shallow = true
+[submodule "submodules/toml"]
+	path = submodules/toml
+	url = https://github.com.cnpmjs.org/uiri/toml.git

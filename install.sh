@@ -182,6 +182,12 @@ ConfigureMonit(){
     Exec InstallMonit
 }
 
+InstallLocal(){
+    Exec ConfigureZoxide
+    Exec ConfigureLazygit
+    Exec ConfigureMonit
+}
+
 Configure(){
     Exec "cd ${scriptPath}"
     Exec ConfigureRanger
@@ -190,9 +196,6 @@ Configure(){
     Exec ConfigureOhMyZsh
     Exec ConfigureFzf
     Exec ConfigureTmux
-    Exec ConfigureZoxide
-    Exec ConfigureLazygit
-    Exec ConfigureMonit
 }
 
 Note(){
@@ -210,10 +213,16 @@ Main(){
         Exec InstallSoft
     fi
 
-    PrintBlue "Do you want to do configuration and install local softwares?"
+    PrintBlue "Do you want to do configuration softwares?"
     Confirm
     if [ $? -eq 0 ]; then
         Exec Configure
+    fi
+
+    PrintBlue "Do you want to install local softwares?"
+    Confirm
+    if [ $? -eq 0 ]; then
+        Exec InstallLocal
     fi
 
     PrintBlue "Do you want to configurate bash?"

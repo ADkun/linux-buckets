@@ -1,24 +1,26 @@
 #! /bin/bash
 
 GetPath() {
-    execPath=$(pwd) # 执行目录
-    scriptPath=$(cd $(dirname "${0}"); pwd) # 脚本本身目录
+    # execPath=$(pwd) # 执行目录
+    scriptPath=$(
+        cd "$(dirname "${0}")" || exit 1
+        pwd
+    ) # 脚本本身目录
 }
 GetPath
 
 . ./common.sh
 
-IsCurrentRoot(){
-    user=$(env | grep USER | cut -d "=" -f 2) 
+IsCurrentRoot() {
+    user=$(env | grep USER | cut -d "=" -f 2)
     if [ "$user"x == "root"x ]; then
         return 0
     fi
     return 1
 }
 
-CheckCurrentRoot(){
-    IsCurrentRoot
-    if [[ $? == 0 ]]; then
+CheckCurrentRoot() {
+    if IsCurrentRoot; then
         PrintGreen "Is root"
         is_root=true
     else
@@ -27,29 +29,28 @@ CheckCurrentRoot(){
     fi
 }
 
-WriteRoot(){
+WriteRoot() {
     Exec 'cat ./bashrc >> /etc/bashrc'
     Exec 'cat ./inputrc >> /etc/inputrc'
 
-    if [[ def_vim == true ]]; then
+    if [[ ${def_vim} == true ]]; then
         Exec 'cat ./vimrc >> /etc/vimrc'
     fi
 }
 
-WriteNotRoot(){
+WriteNotRoot() {
     Exec 'cat ./bashrc >> ~/.bashrc'
     Exec 'cat ./inputrc >> ~/.inputrc'
 
-    if [[ def_vim == true ]]; then
+    if [[ ${def_vim} == true ]]; then
         Exec 'cat ./vimrc >> ~/.vimrc'
     fi
 }
 
-Write(){
+Write() {
     PrintBlue "Do you want to configure vim with default settings?"
     PrintYellow "Note: If you use new vim configuration, please type 'n'"
-    Confirm
-    if [ $? -eq 0 ]; then
+    if Confirm; then
         def_vim=true
     fi
 
@@ -61,7 +62,7 @@ Write(){
     fi
 }
 
-Main(){
+Main() {
     Exec "cd ${scriptPath}"
     Exec CheckCurrentRoot
     Exec Write

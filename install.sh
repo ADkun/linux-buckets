@@ -35,13 +35,11 @@ GetPackageManagerType() {
 GetPackageManagerType
 
 GetArchitecture() {
-    uname -a | grep x86_64 >/dev/null 2>&1
-    if [ $? -eq 0 ]; then
+    if uname -a | grep x86_64 >/dev/null 2>&1; then
         is_x64=true
     fi
 
-    uname -a | grep -E 'arm|aarch' >/dev/null 2>&1
-    if [ $? -eq 0 ]; then
+    if uname -a | grep -E 'arm|aarch' >/dev/null 2>&1; then
         is_arm=true
     fi
 }
@@ -88,14 +86,14 @@ InstallSoft() {
 }
 
 ConfigureRanger() {
-    if [ ! -d '~/.config' ]; then
+    if [[ ! -d ${HOME}/.config ]]; then
         mkdir ~/.config >/dev/null 2>&1
     fi
     Exec 'sudo cp -rf ./ranger ~/.config'
 }
 
 ConfigureTldr() {
-    if [ ! -d '~/.tldr' ]; then
+    if [[ ! -d ${HOME}/.tldr ]]; then
         mkdir ~/.tldr >/dev/null 2>&1
     fi
     Exec 'sudo cp -rf ./tldr ~/.tldr/'

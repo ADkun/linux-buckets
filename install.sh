@@ -157,6 +157,9 @@ ConfigureZoxide() {
     Exec InstallZoxide
     Exec 'echo "" >> ~/.zshrc'
     echo "eval \"\$(zoxide init zsh)\"" >>~/.zshrc
+
+    Exec 'echo "" >> ~/.bashrc'
+    echo "eval \"\$(zoxide init bash)\"" >>~/.bashrc
 }
 
 InstallLazygit() {

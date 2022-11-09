@@ -1,30 +1,28 @@
-
-
-SetPrinter(){
+SetPrinter() {
     SetRed="echo -en \e[91m"
     SetGreen="echo -en \e[32m"
     SetYellow="echo -en \e[33m"
     SetBlue="echo -en \e[36m"
     UnsetColor="echo -en \e[0m"
-    Print(){
+    Print() {
         echo -e "${1}"
     }
-    PrintRed(){
+    PrintRed() {
         $SetRed
         echo -e "${1}"
         $UnsetColor
     }
-    PrintYellow(){
+    PrintYellow() {
         $SetYellow
         echo -e "${1}"
         $UnsetColor
     }
-    PrintGreen(){
+    PrintGreen() {
         $SetGreen
         echo -e "${1}"
         $UnsetColor
     }
-    PrintBlue(){
+    PrintBlue() {
         $SetBlue
         echo -e "${1}"
         $UnsetColor
@@ -50,14 +48,13 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 # ps grep
-alias pg='PgFunc(){ ps -ef|grep -E -i $1; };PgFunc'
+alias pg='PgFunc(){ ps -ef|grep -E -i $1|grep -v grep; };PgFunc'
 
 # find grep
 alias ff='FfFunc(){ find . -type f|grep -E -i $1; }; FfFunc'
 alias fd='FdFunc(){ find . 0-type d|grep -E -i $1; }; FdFunc'
 alias cdff='DffFunc(){ cd $(dirname $(ff $1 | head -n $2 | tail -n 1)); }; DffFunc'
 alias cdfd='DfdFunc(){ cd $(fd $1 | head -n $2 | tail -n 1); }; DfdFunc'
-
 
 # locate grep
 alias lc='updatedb;locate'

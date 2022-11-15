@@ -107,3 +107,6 @@ alias cssh='CsshFunc(){ cat ~/.ssh/id_rsa.pub; };CsshFunc'
 alias ducur='du -h -d 1'
 # go
 alias goup='go get -u ./... && go mod tidy'
+
+# monitrc
+alias vmonit='vim ~/.monitrc'

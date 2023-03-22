@@ -1,5 +1,3 @@
-
-
 # do not show hidden files in the list 
 set match-hidden-files off
    

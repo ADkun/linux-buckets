@@ -1,3 +1,8 @@
+if [[ $- == *i* ]]; then
+    PS1='\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\$'
+fi
+shopt -s autocd
+
 SetPrinter() {
     SetRed="echo -en \e[91m"
     SetGreen="echo -en \e[32m"
@@ -29,6 +34,11 @@ SetPrinter() {
     }
 }
 SetPrinter
+
+function stwrite() {
+    local pid=$1
+    strace -p "${pid}" -s 2000 -e write 2>&1
+}
 
 # find grep
 alias fig='FgFunc(){ find . -type f | while read -r line; do res=$(grep -E -a "$1" $line); if [ -n "$res" ];then PrintGreen "$line:"; Print "$res"; res=""; fi; done; };FgFunc'
